@@ -25,21 +25,30 @@ export const YearlySalesChart: React.FC<YearlySalesChartProps> = ({ data }) => {
   }));
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6">
-      <h3 className="text-xl font-semibold mb-4 text-gray-800">
-        Yearly Sales Comparison
+    <div className="card bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 animation-fade-in">
+      <h3 className="text-2xl font-bold mb-6 text-slate-900 dark:text-white">
+        📈 Yearly Sales Comparison
       </h3>
-      <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={chartData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="year" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="Total Sales" fill="#0ea5e9" />
-          <Bar dataKey="Avg Monthly Sales" fill="#8b5cf6" />
-        </BarChart>
-      </ResponsiveContainer>
+      <div className="w-full h-80">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={chartData}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+            <XAxis dataKey="year" stroke="#64748b" />
+            <YAxis stroke="#64748b" />
+            <Tooltip 
+              contentStyle={{ 
+                backgroundColor: '#1e293b', 
+                border: 'none', 
+                borderRadius: '8px',
+                color: '#f1f5f9'
+              }}
+            />
+            <Legend />
+            <Bar dataKey="Total Sales" fill="#0ea5e9" radius={[8, 8, 0, 0]} />
+            <Bar dataKey="Avg Monthly Sales" fill="#8b5cf6" radius={[8, 8, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };
