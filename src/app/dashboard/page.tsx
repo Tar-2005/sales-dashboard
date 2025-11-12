@@ -8,7 +8,7 @@ import { SalesMetrics } from '@/components/organisms/SalesMetrics';
 import { ChartHeader } from '@/components/molecules/ChartHeader';
 import { FilterControl } from '@/components/molecules/FilterControl';
 import { Button } from '@/components/atoms/Button';
-import { salesData, getYearlyData, getAllYears } from '@/data/salesData';
+import { getYearlyData, getAllYears } from '@/data/salesData';
 import { ChartType, YearlySales } from '@/types/sales';
 
 export default function DashboardPage() {
@@ -18,26 +18,13 @@ export default function DashboardPage() {
   const [threshold, setThreshold] = useState<number>(0);
   const [appliedThreshold, setAppliedThreshold] = useState<number>(0);
 
-  // Filter data
+  // Filtered data for selected year
   const yearData = useMemo(() => {
     const data = getYearlyData(selectedYear);
     return data.filter((item) => item.sales >= appliedThreshold);
   }, [selectedYear, appliedThreshold]);
 
-  // Metrics calculation
-  const metrics = useMemo(() => {
-    const totalSales = yearData.reduce((sum, item) => sum + item.sales, 0);
-    const totalRevenue = yearData.reduce((sum, item) => sum + item.revenue, 0);
-    const averageSales = yearData.length ? totalSales / yearData.length : 0;
-    let growthRate: number | undefined;
-    if (selectedYear > Math.min(...years)) {
-      const prevYearData = getYearlyData(selectedYear - 1);
-      const prevTotal = prevYearData.reduce((sum, item) => sum + item.sales, 0);
-      if (prevTotal > 0) growthRate = ((totalSales - prevTotal) / prevTotal) * 100;
-    }
-    return { totalSales, totalRevenue, averageSales, growthRate };
-  }, [yearData, selectedYear, years]);
-
+  // Yearly comparison data for bar chart
   const yearlyComparisonData: YearlySales[] = useMemo(() => {
     return years.map((year) => {
       const data = getYearlyData(year);
@@ -54,15 +41,18 @@ export default function DashboardPage() {
   }, [years]);
 
   const handleApplyFilter = () => setAppliedThreshold(threshold);
+
   const handleThresholdChange = (val: number) => {
     setThreshold(val);
     setAppliedThreshold(val);
   };
 
+  // Metrics based on filtered year data
   const filteredMetrics = useMemo(() => {
     const totalSales = yearData.reduce((sum, item) => sum + item.sales, 0);
     const totalRevenue = yearData.reduce((sum, item) => sum + item.revenue, 0);
     const averageSales = yearData.length ? totalSales / yearData.length : 0;
+
     let growthRate: number | undefined;
     if (selectedYear > Math.min(...years)) {
       const prevYearData = getYearlyData(selectedYear - 1).filter(
@@ -71,6 +61,7 @@ export default function DashboardPage() {
       const prevTotal = prevYearData.reduce((sum, item) => sum + item.sales, 0);
       if (prevTotal > 0) growthRate = ((totalSales - prevTotal) / prevTotal) * 100;
     }
+
     return { totalSales, totalRevenue, averageSales, growthRate };
   }, [yearData, selectedYear, years, appliedThreshold]);
 
@@ -108,7 +99,9 @@ export default function DashboardPage() {
           <div className="mt-10 border-t border-slate-200 dark:border-slate-700 pt-8">
             <div className="flex items-center gap-2 mb-5">
               <div className="w-1 h-6 bg-gradient-to-b from-sky-600 to-cyan-400 rounded"></div>
-              <h4 className="text-lg font-bold text-slate-900 dark:text-white">Chart Visualization</h4>
+              <h4 className="text-lg font-bold text-slate-900 dark:text-white">
+                Chart Visualization
+              </h4>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Button
@@ -138,7 +131,11 @@ export default function DashboardPage() {
 
         {/* MAIN CHART */}
         <div className="card bg-white/90 dark:bg-slate-800/90 shadow-lg rounded-2xl p-6 transition-smooth">
-          <SalesChart data={yearData} chartType={chartType} title={`Monthly Sales – ${selectedYear}`} />
+          <SalesChart
+            data={yearData}
+            chartType={chartType}
+            title={`Monthly Sales – ${selectedYear}`}
+          />
         </div>
 
         {/* YEARLY COMPARISON */}
