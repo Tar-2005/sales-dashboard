@@ -132,4 +132,4 @@ MIT
 
 ## 👤 Author
 
-Your Name - [Your GitHub Profile]
+Your Name - S. Tarun Kumar
