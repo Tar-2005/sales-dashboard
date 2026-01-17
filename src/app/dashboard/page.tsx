@@ -123,7 +123,7 @@ export default function DashboardPage() {
                 onClick={() => setChartType('area')}
                 className="w-full"
               >
-                📉 Area Chart
+                🥧 Pie Chart
               </Button>
             </div>
           </div>
