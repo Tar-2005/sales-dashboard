@@ -4,7 +4,7 @@ A modern, interactive sales dashboard built with Next.js 15, TypeScript, and Tai
 
 ## 🚀 Features
 
-- **Interactive Charts**: Multiple chart types (Bar, Line, Area) using Recharts
+- **Interactive Charts**: Multiple chart types (Bar, Line, Pie) using Recharts
 - **Year Filtering**: View sales data for 2022, 2023, and 2024
 - **Custom Threshold Filter**: Filter data based on minimum sales values
 - **Responsive Design**: Mobile-friendly interface with Tailwind CSS
@@ -56,7 +56,7 @@ npm run dev
 2. **Dashboard**: Main analytics page with:
    - Sales metrics cards
    - Year and threshold filters
-   - Chart type switcher (Bar/Line/Area)
+   - Chart type switcher (Bar/Line/Pie)
    - Monthly sales visualization
    - Yearly comparison chart
 
@@ -64,7 +64,7 @@ npm run dev
 
 - **Year Selector**: Choose between 2022, 2023, or 2024
 - **Sales Threshold**: Enter a minimum sales value to filter data
-- **Chart Type**: Switch between Bar, Line, and Area charts
+- **Chart Type**: Switch between Bar, Line, and Pie charts
 
 ## 📈 Data Source
 
