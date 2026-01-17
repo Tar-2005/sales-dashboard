@@ -132,4 +132,4 @@ MIT
 
 ## 👤 Author
 
-Your Name - S. Tarun Kumar
+S. Tarun Kumar
